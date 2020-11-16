@@ -3,7 +3,7 @@ pipeline {
     environment {
         imageName = 'jenkins-demo'
         registryCredentialSet = 'dockerhub-lchomatek'
-        registryUri = 'http://172.17.0.2:5000'
+        registryUri = 'http://172.18.0.2:5000'
         dockerInstance = ''
     }
 
