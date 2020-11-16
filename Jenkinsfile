@@ -6,22 +6,24 @@ pipeline {
         dockerInstance = ''
     }
 
-    stage('Build') {
-        steps {
-            echo 'Building Container image'
-            script {
-                dockerInstance = docker.build(imageName)
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building Container image'
+                script {
+                    dockerInstance = docker.build(imageName)
+                }
             }
         }
-    }
 
-    stage('Publish') {
-        steps {
-            echo 'Publishing image'
-            script {
-                docker.withRegistry('', registryCredentialSet) {
-                    dockerInstance.push("${env.BUILD_NUMBER}")
-                    dockerInstance.push("latest")
+        stage('Publish') {
+            steps {
+                echo 'Publishing image'
+                script {
+                    docker.withRegistry('', registryCredentialSet) {
+                        dockerInstance.push("${env.BUILD_NUMBER}")
+                        dockerInstance.push("latest")
+                    }
                 }
             }
         }
