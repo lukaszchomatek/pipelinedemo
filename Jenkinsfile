@@ -1,8 +1,9 @@
 pipeline {
     agent any
     environment {
-        imageName = 'lchomatek/jenkins-demo'
+        imageName = 'jenkins-demo'
         registryCredentialSet = 'dockerhub-lchomatek'
+        registryUri = 'http://localhost:5000'
         dockerInstance = ''
     }
 
@@ -20,7 +21,7 @@ pipeline {
             steps {
                 echo 'Publishing image'
                 script {
-                    docker.withRegistry('', registryCredentialSet) {
+                    docker.withRegistry(registryUri) {
                         dockerInstance.push("${env.BUILD_NUMBER}")
                         dockerInstance.push("latest")
                     }
