@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo 'Publishing image'
                 script {
-                    docker.withRegistry(registryUri) {
+                    docker.withRegistry('https://hub.docker.com',registryCredentialSet) {
                         dockerInstance.push("${env.BUILD_NUMBER}")
                         dockerInstance.push("latest")
                     }
